@@ -1,0 +1,63 @@
+@font-face {
+	font-family: LuckiestGuy;
+	src: url(../fonts/LuckiestGuy-Regular.ttf);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'LuckiestGuy', 'Helvetica Neue', sans-serif;
+	font-size: 14px;
+	background-color: #ffffff;
+	color: #156734;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 20px;
+  width: 98%;
+  max-width: 375px;
+  border: 3px solid #156734;
+  border-radius: 25px;
+}
+
+h1 {
+  color: #694A28;
+  text-align: center;
+}
+
+.centered-content-row {
+  width: 100%;
+  text-align: center;
+}
+
+.duck {
+  height: 275px;
+}
+
+img {
+  position: relative;
+  top: 50%;
+  width: 250px;
+  margin: 0 auto;
+  transform: translateY(-50%)
+}
+
+#timerDisplay {
+  padding: 20px;
+  font-size: 2em;
+  color: #000000;
+}
+
+button {
+  background-color: #156734;
+  width: 200px;
+  color: #ffffff;
+  padding: 11px 15px;
+  border: 1px solid #111111;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 1.25em;
+}
