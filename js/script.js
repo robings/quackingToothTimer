@@ -23,13 +23,9 @@ function changeDuckSize(imageSize) {
 
 function playSound() {
   alarmSound.src = alarmSoundSrc;
-  alarmSound.addEventListener("canplaythrough", playCallback);
-  function playCallback() {
-    alarmSound.removeEventListener("canplaythrough", playCallback);
-    alarmSound.currentTime = 0;
-    alarmSound.play();
-    changeDuckSize("260px");
-  }
+  alarmSound.currentTime = 0;
+  alarmSound.play();
+  changeDuckSize("260px");
 }
 
 function createCountdownDisplay(timeLeftInSeconds) {
