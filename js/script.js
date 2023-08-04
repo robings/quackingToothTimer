@@ -1,9 +1,8 @@
 const alarmSound = new Audio();
-const alarmSoundSrc = "./sound/075176_duck-quack-40345.mp3";
+const alarmSoundSrc = "./sound/duck.mp3";
 let timerButtonFunction = "start";
 let timerInterval;
 let alarmQuackInterval;
-let soundTimer = true;
 
 function firstClick() {
   alarmSound.load();
@@ -43,6 +42,10 @@ document.querySelector("#startButton").addEventListener("click", controlTimer);
 
 function alarmQuack(numberOfQuacks, intervalInMilliseconds, isEnding) {
   var i = 0;
+  if (isEnding) {
+    var controlButton = document.querySelector("#startButton");
+    controlButton.textContent = "Stop Quacking";
+  }
   playSound();
   i++;
   if (numberOfQuacks > 1) {
@@ -78,8 +81,6 @@ function stopTimer(cancelling) {
 function startTimer() {
   let minutes = 2;
   let seconds = minutes * 60;
-  // for testing
-  // let seconds = 2;
   let remainingS = 120;
   let interval = 20;
 
