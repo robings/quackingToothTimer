@@ -45,6 +45,7 @@ function alarmQuack(numberOfQuacks, intervalInMilliseconds, isEnding) {
   if (isEnding) {
     var controlButton = document.querySelector("#startButton");
     controlButton.textContent = "Stop Quacking";
+    controlButton.style.backgroundColor = "#155DAD";
   }
   playSound();
   i++;
