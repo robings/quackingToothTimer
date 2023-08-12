@@ -21,8 +21,6 @@ function turnSvg(angle) {
   const newXCoordinate = svgDimension / 2 + radius * Math.cos(angleAsRadians);
   const newYCoordinate = svgDimension / 2 + radius * Math.sin(angleAsRadians);
 
-  console.log(`X ${newXCoordinate} Y ${newYCoordinate}`);
-
   let path;
 
   if (newYCoordinate >= svgDimension / 2) {
@@ -134,7 +132,6 @@ function startTimer() {
 
     createCountdownDisplay(remainingS);
     let angle = 360 - (360 / seconds) * remainingS;
-    console.log(`Angle ${angle}`);
     turnSvg(angle);
     if (remainingS < 1) {
       stopTimer();
