@@ -11,8 +11,16 @@
   <body>
     <div class="container">
       <h1>Quacking Tooth Timer</h1>
-      <div class="centered-content-row duck">
-        <img id="duck" src="./images/mallard.png" alt="duck picture" />
+      <div class="image-content-surround">
+        <div class="centered-content-row duck">
+          <img id="duck" src="./images/mallard.png" alt="duck picture" />
+        </div>
+        <div class="svgContainer">
+          <svg id="timerSVG" xmlns="http://www.w3.org/2000/svg" fill="transparent" >
+            <path id="path" d="M 2 100
+            L 100 198" stroke="#C75F2E" fill="transparent" stroke-width="6" />
+          </svg>
+        </div>    
       </div>
       <div class="centered-content-row">
         <div id="timerDisplay">02:00</div> 
