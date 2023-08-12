@@ -1,8 +1,44 @@
+const minutes = 2;
 const alarmSound = new Audio();
 const alarmSoundSrc = "./sound/duck.mp3";
 let timerButtonFunction = "start";
 let timerInterval;
 let alarmQuackInterval;
+let svgDimension = 280;
+
+document.getElementById("timerSVG").setAttribute("width", svgDimension);
+document.getElementById("timerSVG").setAttribute("height", svgDimension);
+
+function turnSvg(angle) {
+  const angleAsRadians = angle * (Math.PI / 180);
+  const radius = svgDimension / 2 - 4;
+  const startX = svgDimension / 2 + radius;
+  const startY = svgDimension / 2;
+
+  const half2startX = svgDimension - startX;
+  const half2startY = svgDimension / 2;
+
+  const newXCoordinate = svgDimension / 2 + radius * Math.cos(angleAsRadians);
+  const newYCoordinate = svgDimension / 2 + radius * Math.sin(angleAsRadians);
+
+  let path;
+
+  if (newYCoordinate >= svgDimension / 2) {
+    path = `M ${newXCoordinate} ${newYCoordinate}
+    A ${radius} ${radius} 0 0 1 ${half2startX} ${half2startY}
+    L ${half2startX} ${half2startY}
+    A ${radius} ${radius} 0 0 1 ${startX} ${startY}
+    L ${startX} ${startY}`;
+  } else {
+    path = `M ${newXCoordinate} ${newYCoordinate}
+    A ${radius} ${radius} 0 0 1 ${startX} ${startY}
+    L ${startX} ${startY}`;
+  }
+
+  document.getElementById("path").setAttribute("d", path);
+}
+
+turnSvg(0);
 
 function firstClick() {
   alarmSound.load();
@@ -69,6 +105,7 @@ function restoreStartButton() {
   controlButton.textContent = "Start Tooth Timer";
   controlButton.style.backgroundColor = "#156734";
   document.getElementById("timerDisplay").textContent = "02:00";
+  turnSvg(0);
 }
 
 function stopTimer(cancelling) {
@@ -80,7 +117,6 @@ function stopTimer(cancelling) {
 }
 
 function startTimer() {
-  let minutes = 2;
   let seconds = minutes * 60;
   let remainingS = 120;
   let interval = 20;
@@ -95,6 +131,8 @@ function startTimer() {
     remainingS = seconds - timeDifference;
 
     createCountdownDisplay(remainingS);
+    let angle = 360 - (360 / seconds) * remainingS;
+    turnSvg(angle);
     if (remainingS < 1) {
       stopTimer();
       alarmQuack(10, 1250, true);
