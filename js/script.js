@@ -1,4 +1,4 @@
-const minutes = 1;
+const minutes = 2;
 const alarmSound = new Audio();
 const alarmSoundSrc = "./sound/duck.mp3";
 let timerButtonFunction = "start";
