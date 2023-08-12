@@ -82,6 +82,7 @@ function alarmQuack(numberOfQuacks, intervalInMilliseconds, isEnding) {
     var controlButton = document.querySelector("#startButton");
     controlButton.textContent = "Stop Quacking";
     controlButton.style.backgroundColor = "#155DAD";
+    controlButton.style.borderColor = "#7494b8";
   }
   playSound();
   i++;
@@ -104,6 +105,7 @@ function restoreStartButton() {
   var controlButton = document.querySelector("#startButton");
   controlButton.textContent = "Start Tooth Timer";
   controlButton.style.backgroundColor = "#156734";
+  controlButton.style.borderColor = "#638A73";
   document.getElementById("timerDisplay").textContent = "02:00";
   turnSvg(0);
 }
@@ -117,6 +119,15 @@ function stopTimer(cancelling) {
 }
 
 function startTimer() {
+  if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    document.getElementById("timerTrack").setAttribute("stroke", "#111122");
+  } else {
+    document.getElementById("timerTrack").setAttribute("stroke", "#EEEEFF");
+  }
+
   let seconds = minutes * 60;
   let remainingS = 120;
   let interval = 20;
@@ -145,6 +156,7 @@ function startTimer() {
   var controlButton = document.querySelector("#startButton");
   controlButton.textContent = "Cancel Tooth Timer";
   controlButton.style.backgroundColor = "#e81123";
+  controlButton.style.borderColor = "#b77f84";
 }
 
 function controlTimer() {
