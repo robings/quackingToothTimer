@@ -44,7 +44,7 @@ body {
 }
 
 .settings:disabled {
-  color: grey;
+  color: #cccccc;
   cursor: default;
 }
 
@@ -272,5 +272,9 @@ input[type="range"]::-moz-range-thumb  {
   
   input[type="range"]::-moz-range-thumb  {
     box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.55) inset;
+  }
+
+  .settings:disabled {
+    color:#333333;
   }
 }
