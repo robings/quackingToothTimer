@@ -3,6 +3,7 @@ const alarmSound = new Audio();
 const alarmSoundSrc = "./sound/duck.mp3";
 let timerButtonFunction = "start";
 let timerInterval;
+let circleTimerInterval;
 let alarmQuackInterval;
 let svgDimension = 280;
 
@@ -38,6 +39,7 @@ function turnSvg(angle) {
   document.getElementById("path").setAttribute("d", path);
 }
 
+createCountdownDisplay(minutes * 60);
 turnSvg(0);
 
 function firstClick() {
@@ -106,15 +108,19 @@ function restoreStartButton() {
   controlButton.textContent = "Start Tooth Timer";
   controlButton.style.backgroundColor = "#156734";
   controlButton.style.borderColor = "#638A73";
-  document.getElementById("timerDisplay").textContent = "02:00";
+  createCountdownDisplay(minutes * 60);
   turnSvg(0);
 }
 
 function stopTimer(cancelling) {
   clearTimeout(timerInterval);
+  clearTimeout(circleTimerInterval);
+
   if (cancelling) {
     clearTimeout(alarmQuackInterval);
     restoreStartButton();
+  } else {
+    turnSvg(360);
   }
 }
 
@@ -136,14 +142,13 @@ function startTimer() {
 
   createCountdownDisplay(seconds);
 
+  // run digital display and quacking
   timerInterval = setInterval(() => {
     let timeNow = new Date();
     let timeDifference = Math.floor((timeNow - startTime) / 1000);
     remainingS = seconds - timeDifference;
 
     createCountdownDisplay(remainingS);
-    let angle = 360 - (360 / seconds) * remainingS;
-    turnSvg(angle);
     if (remainingS < 1) {
       stopTimer();
       alarmQuack(10, 1250, true);
@@ -151,6 +156,19 @@ function startTimer() {
       alarmQuack(remainingS === 60 ? 2 : 1, 1000);
     }
   }, 1000);
+
+  // run smooth countdown circle display
+  circleTimerInterval = setInterval(() => {
+    let timeNow = new Date();
+    let timeDifferenceMilliseconds = Math.floor(timeNow - startTime);
+    let milliseconds = seconds * 1000;
+    let remainingMilliseconds = milliseconds - timeDifferenceMilliseconds;
+
+    if (remainingMilliseconds >= 0) {
+      let angle = 360 - (360 / milliseconds) * remainingMilliseconds;
+      turnSvg(angle);
+    }
+  }, 25);
 
   timerButtonFunction = "cancel";
   var controlButton = document.querySelector("#startButton");
