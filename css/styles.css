@@ -3,8 +3,10 @@
 	src: url(../fonts/LuckiestGuy-Regular.ttf);
 }
 
-* {
-	box-sizing: border-box;
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
 }
 
 body {
@@ -23,10 +25,38 @@ body {
   border-radius: 25px;
 }
 
-h1 {
+.settingsContainer {
+  width: 100%;
+  overflow: auto;
+}
+
+.settings {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  width: fit-content;
+  box-shadow: none;
+  color: #156734;
+  float: right;
+  font-size: 1.25em;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.settings:disabled {
+  color: grey;
+  cursor: default;
+}
+
+h1, h2 {
   color: #694A28;
   text-shadow: 1px 1px 2px rgba(5, 5, 5, 0.55);
   text-align: center;
+}
+
+h2 {
+  text-align: left;
+  font-size: 1.5em;
 }
 
 .image-content-surround {
@@ -84,6 +114,109 @@ button {
   box-shadow: -3px -3px 3px rgba(255, 255, 255, 0.55) inset;
 }
 
+.formContainer {
+	z-index: 1;
+	display: none;
+	position: absolute;
+	transform: translate(23%, 10%);
+	min-height: 75px;
+	width: 260px;
+	overflow: auto;
+	background-color: rgba(255, 255, 255, 0.95);
+	border: 1px solid #156734;
+  border-radius: 22px;
+	padding: 10px;
+}
+
+.radioLabel {
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 1.5em;
+  font-size: 1.5em;
+}
+
+.radioLabel + .radioLabel {
+  margin-top: 0.5em;
+}
+
+.rangeLabel {
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 5.75em;
+  font-size: 1.5em;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  font: inherit;
+  width: 1.75em;
+  height: 1.75em;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid #cccccc;
+  border-radius: 50%;
+  transform: translateY(-0.5em);
+  display: grid;
+  place-content: center;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-out;
+  background-color: #C75F2E;
+  box-shadow: -2px -2px 2px rgba(255, 255, 255, 0.55) inset;
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.95);
+  width: 130px;
+  font: inherit;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 1.75em;
+  border: 1px solid #cccccc;
+  border-radius: 0.8em;
+  padding: 0.1em 0.1em 0 0.1em;
+}
+
+input[type="range"]::-moz-range-track  {
+  height: 1.75em;
+  border: 1px solid #cccccc;
+  border-radius: 0.8em;
+  padding-top: 0.1em;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.4em;
+  height: 1.4em;
+  background-color: #C75F2E;
+  border-radius: 50%;
+  box-shadow: -2px -2px 2px rgba(255, 255, 255, 0.55) inset;
+}
+
+input[type="range"]::-moz-range-thumb  {
+  width: 1.4em;
+  height: 1.4em;
+  background-color: #C75F2E;
+  border-radius: 50%;
+  box-shadow: -2px -2px 2px rgba(255, 255, 255, 0.55) inset;
+}
+
 @media (prefers-color-scheme: light) {
   body {
     background-color: #ffffff;
@@ -95,7 +228,7 @@ button {
     background-color: #000000;
   }
 
-  h1 {
+  h1, h2 {
     text-shadow: 2px 2px 2px rgb(255, 255, 255);
   }
 
@@ -106,5 +239,38 @@ button {
   #timerDisplay {
     color: #ffffff;
     text-shadow: 2px 2px 3px rgba(230, 230, 230, 0.5);
+  }
+
+  .formContainer {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  input[type="radio"] {
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 1px solid #333333;
+  }
+
+  input[type="radio"]::before {
+    box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.55) inset;
+  }
+
+  input[type="range"] {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    border: 1px solid #333333;
+  }
+  
+  input[type="range"]::-moz-range-track  {
+    border: 1px solid #333333;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.55) inset;
+  }
+  
+  input[type="range"]::-moz-range-thumb  {
+    box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.55) inset;
   }
 }

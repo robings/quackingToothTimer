@@ -1,4 +1,4 @@
-const minutes = 2;
+let minutes = 2;
 const alarmSound = new Audio();
 const alarmSoundSrc = "./sound/duck.mp3";
 let timerButtonFunction = "start";
@@ -6,9 +6,23 @@ let timerInterval;
 let circleTimerInterval;
 let alarmQuackInterval;
 let svgDimension = 280;
+let interval = 20;
 
 document.getElementById("timerSVG").setAttribute("width", svgDimension);
 document.getElementById("timerSVG").setAttribute("height", svgDimension);
+document.querySelector(".settings").addEventListener("click", settingsDisplay);
+document.getElementById("settingsForm").onclick = function () {
+  minutes = document.querySelector('input[name="timeChoice"]:checked').value;
+  createCountdownDisplay(minutes * 60);
+};
+
+var slider = document.getElementById("quackInterval");
+var sliderDisplay = document.querySelector(".sliderValue");
+sliderDisplay.textContent = `${slider.value} seconds`;
+slider.oninput = function () {
+  sliderDisplay.textContent = `${slider.value} seconds`;
+  interval = slider.value;
+};
 
 function turnSvg(angle) {
   const angleAsRadians = angle * (Math.PI / 180);
@@ -110,6 +124,10 @@ function restoreStartButton() {
   controlButton.style.borderColor = "#638A73";
   createCountdownDisplay(minutes * 60);
   turnSvg(0);
+  const settingsBlock = document.querySelector(".settings");
+
+  settingsBlock.addEventListener("click", settingsDisplay);
+  settingsBlock.removeAttribute("disabled", "");
 }
 
 function stopTimer(cancelling) {
@@ -125,6 +143,19 @@ function stopTimer(cancelling) {
 }
 
 function startTimer() {
+  // close settings if open
+  if (
+    window.getComputedStyle(document.querySelector(".formContainer"))
+      .display !== "none"
+  ) {
+    document.querySelector(".formContainer").style.display = "none";
+  }
+
+  // cancel the event listener for settings
+  const settingsBlock = document.querySelector(".settings");
+  settingsBlock.removeEventListener("click", settingsDisplay);
+  settingsBlock.setAttribute("disabled", "");
+
   if (
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -136,7 +167,6 @@ function startTimer() {
 
   let seconds = minutes * 60;
   let remainingS = 120;
-  let interval = 20;
 
   let startTime = new Date();
 
@@ -153,7 +183,7 @@ function startTimer() {
       stopTimer();
       alarmQuack(10, 1250, true);
     } else if (remainingS % interval === 0 && remainingS > 0) {
-      alarmQuack(remainingS === 60 ? 2 : 1, 1000);
+      alarmQuack(remainingS === seconds / 2 ? 2 : 1, 1000);
     }
   }, 1000);
 
@@ -182,5 +212,16 @@ function controlTimer() {
     startTimer();
   } else if (timerButtonFunction === "cancel") {
     stopTimer(true);
+  }
+}
+
+function settingsDisplay() {
+  if (
+    window.getComputedStyle(document.querySelector(".formContainer"))
+      .display === "none"
+  ) {
+    document.querySelector(".formContainer").style.display = "block";
+  } else {
+    document.querySelector(".formContainer").style.display = "none";
   }
 }
