@@ -16,6 +16,15 @@ document.getElementById("settingsForm").onclick = function () {
   createCountdownDisplay(minutes * 60);
 };
 
+if (
+  window.matchMedia &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches
+) {
+  document.getElementById("timerTrack").setAttribute("stroke", "#111122");
+} else {
+  document.getElementById("timerTrack").setAttribute("stroke", "#EEEEFF");
+}
+
 var slider = document.getElementById("quackInterval");
 var sliderDisplay = document.querySelector(".sliderValue");
 sliderDisplay.textContent = `${slider.value} seconds`;
