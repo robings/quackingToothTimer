@@ -20,7 +20,18 @@ var slider = document.getElementById("quackInterval");
 var sliderDisplay = document.querySelector(".sliderValue");
 sliderDisplay.textContent = `${slider.value} seconds`;
 slider.oninput = function () {
-  sliderDisplay.textContent = `${slider.value} seconds`;
+  let valueToDisplay = slider.value;
+  if (valueToDisplay === "40") {
+    valueToDisplay = "30";
+    slider.value = "30";
+  }
+
+  if (valueToDisplay === "50") {
+    valueToDisplay = "60";
+    slider.value = "60";
+  }
+
+  sliderDisplay.textContent = `${valueToDisplay} seconds`;
   interval = slider.value;
 };
 

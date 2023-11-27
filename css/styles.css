@@ -167,7 +167,8 @@ input[type="radio"]::before {
   border-radius: 50%;
   transform: scale(0);
   transition: 120ms transform ease-out;
-  background-color: #C75F2E;
+  /* background-color: #C75F2E; */
+  background-image: linear-gradient(to bottom right, #490a83, #155DAD, #156734);
   box-shadow: -2px -2px 2px rgba(255, 255, 255, 0.55) inset;
 }
 
@@ -204,7 +205,8 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: 1.4em;
   height: 1.4em;
-  background-color: #C75F2E;
+  /* background-color: #C75F2E; */
+  background-image: linear-gradient(to bottom right, #490a83, #155DAD, #156734);
   border-radius: 50%;
   box-shadow: -2px -2px 2px rgba(255, 255, 255, 0.55) inset;
 }
@@ -212,7 +214,8 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-moz-range-thumb  {
   width: 1.4em;
   height: 1.4em;
-  background-color: #C75F2E;
+  /* background-color: #C75F2E; */
+  background-image: linear-gradient(to bottom right, #490a83, #155DAD, #156734);
   border-radius: 50%;
   box-shadow: -2px -2px 2px rgba(255, 255, 255, 0.55) inset;
 }
