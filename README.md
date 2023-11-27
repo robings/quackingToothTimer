@@ -1,7 +1,7 @@
 # quackingToothTimer
 A Timer for Cleaning Teeth
 
-![image](https://github.com/robings/quackingToothTimer/assets/58939401/73c12633-61a4-491b-9928-d7bea606a567)
+![image](https://github.com/robings/quackingToothTimer/assets/58939401/59765f7a-dfa0-4d85-9652-f4e4577872c3)
 
 - The timer runs for the time set in the settings
   - Choose between 2 and 3 minutes (default 2 minutes).
