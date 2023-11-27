@@ -227,7 +227,7 @@ input[type="range"]::-moz-range-track  {
   height: 1.75em;
   border: 1px solid var(--lightModeInputBorder);
   border-radius: 0.8em;
-  padding-top: 0.1em;
+  padding: 0.1em 0.1em 0 0.1em;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -246,6 +246,7 @@ input[type="range"]::-moz-range-thumb  {
   height: 1.4em;
   /* background-color: var(--duckLegOrange); */
   background-image: linear-gradient(to bottom right, var(--duckFeatherPurple), var(--duckFeatherBlue), var(--duckFeatherGreen));
+  border: none;
   border-radius: 50%;
   box-shadow: -2px -2px 2px rgba(var(--lightModeButtonShadow), 0.55) inset;
 }
