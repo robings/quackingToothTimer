@@ -10,6 +10,24 @@
   </head>
   <body>
     <div class="container">
+      <div class="settingsContainer">
+        <button class="settings">&#9881; Settings</button>
+        <div class="formContainer">
+          <form id="settingsForm">
+            <h2>Time</h2>
+            <label class="radioLabel" for="2mins">
+              <input type="radio" name="timeChoice" id="2mins" value="2" checked />2 minutes
+            </label>
+            <label class="radioLabel" for="3mins">
+              <input type="radio" name="timeChoice" id="3mins" value="3" />3 minutes
+            </label>
+            <h2>Quack Interval</h2>
+            <label class="rangeLabel" for="quackInterval">
+              <input type="range" min="10" max ="60" step="10" value="20" id="quackInterval" /><span class="sliderValue"></span>
+            </label>
+          </form>
+        </div>
+      </div>
       <h1>Quacking Tooth Timer</h1>
       <div class="image-content-surround">
         <div class="centered-content-row duck">

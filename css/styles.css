@@ -3,30 +3,90 @@
 	src: url(../fonts/LuckiestGuy-Regular.ttf);
 }
 
-* {
-	box-sizing: border-box;
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+:root {
+  --duckFeatherGreen: #156734;
+  --duckFeatherBlue: #155DAD;
+  --duckFeatherPurple: #490A83;
+  --duckFeatherBrown: #694A28;
+  --duckLegOrange: #C75F2E; /* used for timer circle in html */
+  --button: #FFFFFF;
+  --greenButtonBorder: #638A73;
+  --lightModeTextShadow: 5, 5, 5;
+  --lightModeBackground: #FFFFFF;
+  --lightModeTimerDisplay: #222222;
+  --lightModeDisabled: #CCCCCC;
+  --lightModeInputBorder: #CCCCCC;
+  --lightModeButtonShadow: 255, 255, 255;
+  --lightModeSettingsBackground: 255, 255, 255;
+  --darkModeBackground: #000000;
+  --darkModeTextShadow: 255, 255, 255;
+  --darkModeButtonShadow: 0, 0, 0;
+  --darkModeTimerDisplay: #FFFFFF;
+  --darkModeTimerTextShadow: 230, 230, 230;
+  --darkModeDisabled: #333333;
+  --darkModeInputBorder: #333333;
+  --darkModeSettingsBackground: 0, 0, 0;
 }
 
 body {
 	font-family: 'LuckiestGuy', 'Helvetica Neue', sans-serif;
 	font-size: 14px;
-	background-color: #ffffff;
-	color: #156734;
+	background-color: var(--lightModeBackground);
+	color: var(--duckFeatherGreen);
 }
 
 .container {
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 17px;
   width: 98%;
   max-width: 375px;
-  border: 4px solid #156734;
+  max-height: 534px;
+  border: 4px solid var(--duckFeatherGreen);
   border-radius: 25px;
 }
 
-h1 {
-  color: #694A28;
-  text-shadow: 1px 1px 2px rgba(5, 5, 5, 0.55);
+.settingsContainer {
+  width: 100%;
+  overflow: auto;
+}
+
+.settings {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  width: fit-content;
+  box-shadow: none;
+  color: var(--duckFeatherGreen);
+  float: right;
+  font-size: 1.25em;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.settings:disabled {
+  color: var(--lightModeDisabled);
+  cursor: default;
+}
+
+h1, h2 {
+  color: var(--duckFeatherBrown);
+  text-shadow: 1px 1px 2px rgba(var(--headingTextShadow), 0.55);
   text-align: center;
+}
+
+h1 {
+  font-size: 1.9em;
+}
+
+h2 {
+  text-align: left;
+  font-size: 1.5em;
 }
 
 .image-content-surround {
@@ -68,43 +128,187 @@ img {
 #timerDisplay {
   padding: 20px;
   font-size: 2em;
-  color: #222222;
-  text-shadow: 2px 2px 3px rgba(5, 5, 5, 0.5);
+  color: var(--lightModeTimerDisplay);
+  text-shadow: 2px 2px 3px rgba(var(--lightModeTextShadow), 0.5);
 }
 
 button {
-  background-color: #156734;
+  background-color: var(--duckFeatherGreen);
   width: 200px;
-  color: #ffffff;
+  color: var(--button);
   padding: 11px 15px;
-  border: 1px solid #638A73;
+  border: 1px solid var(--greenButtonBorder);
   border-radius: 22px;
   cursor: pointer;
   font-size: 1.25em;
-  box-shadow: -3px -3px 3px rgba(255, 255, 255, 0.55) inset;
+  box-shadow: -3px -3px 3px rgba(var(--lightModeButtonShadow), 0.55) inset;
+}
+
+.formContainer {
+	z-index: 1;
+	display: none;
+	position: absolute;
+	transform: translate(23%, 10%);
+	min-height: 75px;
+	width: 260px;
+	overflow: auto;
+	background-color: rgba(var(--lightModeSettingsBackground), 0.95);
+	border: 1px solid var(--duckFeatherGreen);
+  border-radius: 22px;
+	padding: 10px;
+}
+
+.radioLabel {
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 1.5em;
+  font-size: 1.5em;
+}
+
+.radioLabel + .radioLabel {
+  margin-top: 0.5em;
+}
+
+.rangeLabel {
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 5.75em;
+  font-size: 1.5em;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  font: inherit;
+  width: 1.75em;
+  height: 1.75em;
+  background-color: transparent;
+  border: 1px solid var(--lightModeInputBorder);
+  border-radius: 50%;
+  transform: translateY(-0.5em);
+  display: grid;
+  place-content: center;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-out;
+  /* background-color: var(--duckLegOrange); */
+  background-image: linear-gradient(to bottom right, var(--duckFeatherPurple), var(--duckFeatherBlue), var(--duckFeatherGreen));
+  box-shadow: -2px -2px 2px rgba(var(--lightModeButtonShadow), 0.55) inset;
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  width: 130px;
+  font: inherit;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 1.75em;
+  border: 1px solid var(--lightModeInputBorder);
+  border-radius: 0.8em;
+  padding: 0.1em 0.1em 0 0.1em;
+}
+
+input[type="range"]::-moz-range-track  {
+  height: 1.75em;
+  border: 1px solid var(--lightModeInputBorder);
+  border-radius: 0.8em;
+  padding: 0.1em 0.1em 0 0.1em;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.4em;
+  height: 1.4em;
+  /* background-color: var(--duckLegOrange); */
+  background-image: linear-gradient(to bottom right, var(--duckFeatherPurple), var(--duckFeatherBlue), var(--duckFeatherGreen));
+  border-radius: 50%;
+  box-shadow: -2px -2px 2px rgba(var(--lightModeButtonShadow), 0.55) inset;
+}
+
+input[type="range"]::-moz-range-thumb  {
+  width: 1.4em;
+  height: 1.4em;
+  /* background-color: var(--duckLegOrange); */
+  background-image: linear-gradient(to bottom right, var(--duckFeatherPurple), var(--duckFeatherBlue), var(--duckFeatherGreen));
+  border: none;
+  border-radius: 50%;
+  box-shadow: -2px -2px 2px rgba(var(--lightModeButtonShadow), 0.55) inset;
 }
 
 @media (prefers-color-scheme: light) {
   body {
-    background-color: #ffffff;
+    background-color: var(--lightModeBackground);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #000000;
+    background-color: var(--darkModeBackground);
   }
 
-  h1 {
-    text-shadow: 2px 2px 2px rgb(255, 255, 255);
+  h1, h2 {
+    text-shadow: 2px 2px 2px rgb(var(--darkModeTextShadow));
   }
 
   button {
-    box-shadow: -3px -3px 3px rgba(0, 0, 0, 0.55) inset;
+    box-shadow: -3px -3px 3px rgba(var(--darkModeButtonShadow), 0.55) inset;
   }
 
   #timerDisplay {
-    color: #ffffff;
-    text-shadow: 2px 2px 3px rgba(230, 230, 230, 0.5);
+    color: var(--darkModeTimerDisplay);
+    text-shadow: 2px 2px 3px rgba(var(--darkModeTimerTextShadow), 0.5);
+  }
+
+  .formContainer {
+    background-color: rgba(var(--darkModeSettingsBackground), 0.9);
+  }
+
+  input[type="radio"] {
+    background-color: transparent;
+    border: 1px solid var(--darkModeInputBorder);
+  }
+
+  input[type="radio"]::before {
+    box-shadow: -2px -2px 2px rgba(var(--darkModeButtonShadow), 0.55) inset;
+  }
+
+  input[type="range"] {
+    background-color: transparent;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    border: 1px solid var(--darkModeInputBorder);
+  }
+  
+  input[type="range"]::-moz-range-track  {
+    border: 1px solid var(--darkModeInputBorder);
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    box-shadow: -2px -2px 2px rgba(var(--darkModeButtonShadow), 0.55) inset;
+  }
+  
+  input[type="range"]::-moz-range-thumb  {
+    box-shadow: -2px -2px 2px rgba(var(--darkModeButtonShadow), 0.55) inset;
+  }
+
+  .settings:disabled {
+    color:var(--darkModeDisabled);
   }
 }
