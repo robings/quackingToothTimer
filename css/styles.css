@@ -82,13 +82,16 @@ h1, h2 {
 
 h1 {
   font-size: 1.9em;
-  -webkit-text-size-adjust: 100%;
   margin: 0.67em 0;
 }
 
 h2 {
   text-align: left;
   font-size: 1.5em;
+}
+
+h2.mainTitle {
+  text-align: center;
 }
 
 .image-content-surround {
