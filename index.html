@@ -14,6 +14,7 @@
         <button class="settings">&#9881; Settings</button>
         <div class="formContainer">
           <form id="settingsForm">
+            <button class="closeButton" role="button">X</button>
             <h2>Time</h2>
             <label class="radioLabel" for="2mins">
               <input type="radio" name="timeChoice" id="2mins" value="2" checked />2 minutes
@@ -24,6 +25,13 @@
             <h2>Quack Interval</h2>
             <label class="rangeLabel" for="quackInterval">
               <input type="range" min="10" max ="60" step="10" value="20" id="quackInterval" /><span class="sliderValue"></span>
+            </label>
+            <h2>Timer Colour</h2>
+            <label class="radioLabel" for="orange">
+              <input type="radio" name="colourChoice" id="orange" value="#C75F2E" checked />duck leg orange
+            </label>
+            <label class="radioLabel" for="3mins">
+              <input type="radio" name="colourChoice" id="blue" value="#155DAD" />duck feather blue
             </label>
           </form>
         </div>

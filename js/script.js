@@ -7,14 +7,28 @@ let circleTimerInterval;
 let alarmQuackInterval;
 let svgDimension = 280;
 let interval = 20;
+let timerColour = "#C75F2E";
 
 document.getElementById("timerSVG").setAttribute("width", svgDimension);
 document.getElementById("timerSVG").setAttribute("height", svgDimension);
 document.querySelector(".settings").addEventListener("click", settingsDisplay);
 document.getElementById("settingsForm").onclick = function () {
   minutes = document.querySelector('input[name="timeChoice"]:checked').value;
+  timerColour = document.querySelector(
+    'input[name="colourChoice"]:checked'
+  ).value;
+  document.getElementById("path").setAttribute("stroke", timerColour);
   createCountdownDisplay(minutes * 60);
 };
+document.querySelector(".closeButton").addEventListener("click", function (e) {
+  e.preventDefault();
+  if (
+    window.getComputedStyle(document.querySelector(".formContainer"))
+      .display !== "none"
+  ) {
+    document.querySelector(".formContainer").style.display = "none";
+  }
+});
 
 if (
   window.matchMedia &&
