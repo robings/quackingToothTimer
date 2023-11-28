@@ -90,8 +90,9 @@ h2 {
   font-size: 1.5em;
 }
 
-h2.mainTitle {
+.mainTitle {
   text-align: center;
+  font-size: 1.9em;
 }
 
 .image-content-surround {
