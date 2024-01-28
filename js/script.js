@@ -6,19 +6,37 @@ let timerInterval;
 let circleTimerInterval;
 let alarmQuackInterval;
 let svgDimension = 280;
-let interval = 20;
-let timerColour = "#C75F2E";
+let interval;
+let timerColour;
+let isTiming = false;
 
-document.getElementById("timerSVG").setAttribute("width", svgDimension);
-document.getElementById("timerSVG").setAttribute("height", svgDimension);
-document.querySelector(".settings").addEventListener("click", settingsDisplay);
-document.getElementById("settingsForm").onclick = function () {
+var slider = document.getElementById("quackInterval");
+
+function setupFromSettings() {
   minutes = document.querySelector('input[name="timeChoice"]:checked').value;
   timerColour = document.querySelector(
     'input[name="colourChoice"]:checked'
   ).value;
   document.getElementById("path").setAttribute("stroke", timerColour);
   createCountdownDisplay(minutes * 60);
+  interval = slider.value;
+}
+
+function diagnose() {
+  console.log(document.querySelector('input[name="timeChoice"]:checked').value);
+  console.log(
+    document.querySelector('input[name="colourChoice"]:checked').value
+  );
+  console.log(interval);
+}
+
+setupFromSettings();
+
+document.getElementById("timerSVG").setAttribute("width", svgDimension);
+document.getElementById("timerSVG").setAttribute("height", svgDimension);
+document.querySelector(".settings").addEventListener("click", settingsDisplay);
+document.getElementById("settingsForm").onclick = function () {
+  setupFromSettings();
 };
 document.querySelector(".closeButton").addEventListener("click", function (e) {
   e.preventDefault();
@@ -30,6 +48,22 @@ document.querySelector(".closeButton").addEventListener("click", function (e) {
   }
 });
 
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", function (e) {
+    if (isTiming) {
+      return;
+    }
+
+    if (e.matches) {
+      document.getElementById("timerTrack").setAttribute("stroke", "#111122");
+    } else {
+      document.getElementById("timerTrack").setAttribute("stroke", "#EEEEFF");
+    }
+
+    setupFromSettings();
+  });
+
 if (
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -39,7 +73,6 @@ if (
   document.getElementById("timerTrack").setAttribute("stroke", "#EEEEFF");
 }
 
-var slider = document.getElementById("quackInterval");
 var sliderDisplay = document.querySelector(".sliderValue");
 sliderDisplay.textContent = `${slider.value} seconds`;
 slider.oninput = function () {
@@ -167,6 +200,7 @@ function restoreStartButton() {
 function stopTimer(cancelling) {
   clearTimeout(timerInterval);
   clearTimeout(circleTimerInterval);
+  isTiming = false;
 
   if (cancelling) {
     clearTimeout(alarmQuackInterval);
@@ -198,6 +232,8 @@ function startTimer() {
   } else {
     document.getElementById("timerTrack").setAttribute("stroke", "#EEEEFF");
   }
+
+  isTiming = true;
 
   let seconds = minutes * 60;
   let remainingS = 120;
