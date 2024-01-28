@@ -9,8 +9,19 @@ let svgDimension = 280;
 let interval;
 let timerColour;
 let isTiming = false;
+let duckImageCode;
 
 var slider = document.getElementById("quackInterval");
+
+var ducks = [
+  "./images/mallard1.png",
+  "./images/mallard2.png",
+  "./images/mallard3.png",
+];
+
+function getDuckImageSrc(duckImageCode) {
+  return ducks[duckImageCode - 1];
+}
 
 function setupFromSettings() {
   minutes = document.querySelector('input[name="timeChoice"]:checked').value;
@@ -18,6 +29,11 @@ function setupFromSettings() {
     'input[name="colourChoice"]:checked'
   ).value;
   document.getElementById("path").setAttribute("stroke", timerColour);
+
+  duckImageCode = document.querySelector(
+    'input[name="duckChoice"]:checked'
+  ).value;
+  document.getElementById("duck").src = getDuckImageSrc(duckImageCode);
   createCountdownDisplay(minutes * 60);
   interval = slider.value;
 }
@@ -92,6 +108,10 @@ slider.oninput = function () {
 };
 
 function turnSvg(angle) {
+  document.getElementById(
+    "duckContainer"
+  ).style.transform = `rotate(${angle}deg)`;
+
   const angleAsRadians = angle * (Math.PI / 180);
   const radius = svgDimension / 2 - 4;
   const startX = svgDimension / 2 + radius;

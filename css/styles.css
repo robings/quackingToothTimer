@@ -16,9 +16,9 @@
   --duckFeatherBrown: #694A28;
   --duckLegOrange: #C75F2E; /* used for timer circle in html */
   --button: #FFFFFF;
-  --closeButton: #E81123; /* used in script for cancel button */
+  --closeButton: #155DAD; /* used in script for cancel button */
   --greenButtonBorder: #638A73;
-  --closeButtonBorder: #B77F84; /* used in script for cancel button */
+  --closeButtonBorder: #7494b8; /* used in script for cancel button */
   --lightModeTextShadow: 5, 5, 5;
   --lightModeBackground: #FFFFFF;
   --lightModeTimerDisplay: #222222;
@@ -127,6 +127,13 @@ img {
   transform: translateY(-50%);
 }
 
+img.duckSelection {
+  position: inherit;
+  transform: unset;
+  width: 75px;
+  transform: translate(-34%, -12%);
+}
+
 #timerDisplay {
   padding: 20px;
   font-size: 2em;
@@ -148,7 +155,7 @@ button {
 
 .closeButton {
   width: fit-content;
-  padding: 11px 15px;
+  padding: 14px 17px 8px 17px;
   background-color: var(--closeButton);
   border-color: var(--closeButtonBorder);
   float: right;
@@ -159,14 +166,27 @@ button {
 	z-index: 1;
 	display: none;
 	position: absolute;
-	transform: translate(23%, 20px);
+  transform: translate(-16px, -20px);
 	min-height: 75px;
-	width: 260px;
+	width: 365px;
 	overflow: auto;
 	background-color: rgba(var(--lightModeSettingsBackground), 0.95);
-	border: 1px solid var(--duckFeatherGreen);
   border-radius: 22px;
 	padding: 10px;
+}
+
+.formContainer h2 {
+  margin: 0.6em 0;
+}
+
+.timeRadioButtons {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.duckRadioButtons {
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 
 .radioLabel {
@@ -177,8 +197,20 @@ button {
   cursor: pointer;
 }
 
-.radioLabel + .radioLabel {
+.duckRadioButtons .radioLabel {
+  gap: 0;
+}
+
+.timerColour .radioLabel:not(:first-of-type) {
   margin-top: 0.5em;
+}
+
+.timerColour .radioLabel:first-of-type {
+  color: var(--duckLegOrange);
+}
+
+.timerColour .radioLabel:nth-of-type(2) {
+  color: var(--duckFeatherBlue);
 }
 
 .rangeLabel {
@@ -186,6 +218,10 @@ button {
   grid-template-columns: 1em auto;
   gap: 5.75em;
   font-size: 1.5em;
+}
+
+.sliderValue {
+  padding-top: 0.5em;
 }
 
 input[type="radio"] {
@@ -203,12 +239,26 @@ input[type="radio"] {
   cursor: pointer;
 }
 
+.duckRadioButtons input[type="radio"] {
+  width: 75px;
+  height: 75px;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.duckRadioButtons input[type="radio"]:checked {
+  border-color: var(--duckFeatherBlue);
+}
+
+.duckRadioButtons input[type="radio"]:checked::before {
+  display: none;
+}
+
 input[type="radio"]:checked::before {
   content: "";
   width: 1.4em;
   height: 1.4em;
   border-radius: 50%;
-  /* background-color: var(--duckLegOrange); */
   background-image: linear-gradient(to bottom right, var(--duckFeatherPurple), var(--duckFeatherBlue), var(--duckFeatherGreen));
   box-shadow: -2px -2px 2px rgba(var(--lightModeButtonShadow), 0.55) inset;
 }
@@ -280,6 +330,10 @@ input[type="range"]::-moz-range-thumb  {
   #timerDisplay {
     color: var(--darkModeTimerDisplay);
     text-shadow: 2px 2px 3px rgba(var(--darkModeTimerTextShadow), 0.5);
+  }
+
+  img.duckSelection {
+    border-color: var(--darkModeInputBorder);
   }
 
   .formContainer {

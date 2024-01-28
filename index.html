@@ -14,32 +14,51 @@
         <button class="settings">&#9881; Settings</button>
         <div class="formContainer">
           <form id="settingsForm">
-            <button class="closeButton" role="button">X</button>
+            <button class="closeButton" role="button">^</button>
             <h2>Time</h2>
-            <label class="radioLabel" for="2mins">
-              <input type="radio" name="timeChoice" id="2mins" value="2" checked />2 minutes
-            </label>
-            <label class="radioLabel" for="3mins">
-              <input type="radio" name="timeChoice" id="3mins" value="3" />3 minutes
-            </label>
+            <div class="timeRadioButtons">
+              <label class="radioLabel" for="2mins">
+                <input type="radio" name="timeChoice" id="2mins" value="2" checked />2 mins
+              </label>
+              <label class="radioLabel" for="3mins">
+                <input type="radio" name="timeChoice" id="3mins" value="3" />3 mins
+              </label> 
+            </div>
             <h2>Quack Interval</h2>
             <label class="rangeLabel" for="quackInterval">
               <input type="range" min="10" max ="60" step="10" value="20" id="quackInterval" /><span class="sliderValue"></span>
             </label>
             <h2>Timer Colour</h2>
-            <label class="radioLabel" for="orange">
-              <input type="radio" name="colourChoice" id="orange" value="#C75F2E" checked />duck leg orange
-            </label>
-            <label class="radioLabel" for="3mins">
-              <input type="radio" name="colourChoice" id="blue" value="#155DAD" />duck feather blue
-            </label>
+            <div class="timerColour">
+              <label class="radioLabel" for="orange">
+                <input type="radio" name="colourChoice" id="orange" value="#C75F2E" checked />duck leg orange
+              </label>
+              <label class="radioLabel" for="blue">
+                <input type="radio" name="colourChoice" id="blue" value="#155DAD" />duck feather blue
+              </label>
+              <label class="radioLabel" for="green">
+                <input type="radio" name="colourChoice" id="green" value="#156734" />duck feather green
+              </label>
+            </div>
+            <h2>Duck</h2>
+            <div class="duckRadioButtons">
+              <label class="radioLabel" for="duck1">
+                <input type="radio" name="duckChoice" id="duck1" value="1" checked /><img class="duckSelection" src="./images/mallard1.png" alt="duck option one picture" />
+              </label>
+              <label class="radioLabel" for="duck2">
+                <input type="radio" name="duckChoice" id="duck2" value="2" /><img class="duckSelection" src="./images/mallard2.png" alt="duck option one picture" />
+              </label>
+              <label class="radioLabel" for="duck3">
+                <input type="radio" name="duckChoice" id="duck3" value="3" /><img class="duckSelection" src="./images/mallard3.png" alt="duck option one picture" />
+              </label>
+            </div>
           </form>
         </div>
       </div>
       <h1>Quacking Tooth Timer</h1>
       <div class="image-content-surround">
-        <div class="centered-content-row duck">
-          <img id="duck" src="./images/mallard.png" alt="duck picture" />
+        <div class="centered-content-row duck" id="duckContainer">
+          <img id="duck" src="./images/mallard3.png" alt="duck picture" />
         </div>
         <div class="svgContainer">
           <svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" fill="transparent" >
