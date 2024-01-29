@@ -6,15 +6,79 @@ let timerInterval;
 let circleTimerInterval;
 let alarmQuackInterval;
 let svgDimension = 280;
-let interval = 20;
+let interval;
+let timerColour;
+let isTiming = false;
+let duckImageCode;
+
+var slider = document.getElementById("quackInterval");
+
+var ducks = [
+  "./images/mallard1.png",
+  "./images/mallard2.png",
+  "./images/mallard3.png",
+];
+
+function getDuckImageSrc(duckImageCode) {
+  return ducks[duckImageCode - 1];
+}
+
+function setupFromSettings() {
+  minutes = document.querySelector('input[name="timeChoice"]:checked').value;
+  timerColour = document.querySelector(
+    'input[name="colourChoice"]:checked'
+  ).value;
+  document.getElementById("path").setAttribute("stroke", timerColour);
+
+  duckImageCode = document.querySelector(
+    'input[name="duckChoice"]:checked'
+  ).value;
+  document.getElementById("duck").src = getDuckImageSrc(duckImageCode);
+  createCountdownDisplay(minutes * 60);
+  interval = slider.value;
+}
+
+function diagnose() {
+  console.log(document.querySelector('input[name="timeChoice"]:checked').value);
+  console.log(
+    document.querySelector('input[name="colourChoice"]:checked').value
+  );
+  console.log(interval);
+}
+
+setupFromSettings();
 
 document.getElementById("timerSVG").setAttribute("width", svgDimension);
 document.getElementById("timerSVG").setAttribute("height", svgDimension);
 document.querySelector(".settings").addEventListener("click", settingsDisplay);
 document.getElementById("settingsForm").onclick = function () {
-  minutes = document.querySelector('input[name="timeChoice"]:checked').value;
-  createCountdownDisplay(minutes * 60);
+  setupFromSettings();
 };
+document.querySelector(".closeButton").addEventListener("click", function (e) {
+  e.preventDefault();
+  if (
+    window.getComputedStyle(document.querySelector(".formContainer"))
+      .display !== "none"
+  ) {
+    document.querySelector(".formContainer").style.display = "none";
+  }
+});
+
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", function (e) {
+    if (isTiming) {
+      return;
+    }
+
+    if (e.matches) {
+      document.getElementById("timerTrack").setAttribute("stroke", "#111122");
+    } else {
+      document.getElementById("timerTrack").setAttribute("stroke", "#EEEEFF");
+    }
+
+    setupFromSettings();
+  });
 
 if (
   window.matchMedia &&
@@ -25,7 +89,6 @@ if (
   document.getElementById("timerTrack").setAttribute("stroke", "#EEEEFF");
 }
 
-var slider = document.getElementById("quackInterval");
 var sliderDisplay = document.querySelector(".sliderValue");
 sliderDisplay.textContent = `${slider.value} seconds`;
 slider.oninput = function () {
@@ -45,6 +108,10 @@ slider.oninput = function () {
 };
 
 function turnSvg(angle) {
+  document.getElementById(
+    "duckContainer"
+  ).style.transform = `rotate(${angle}deg)`;
+
   const angleAsRadians = angle * (Math.PI / 180);
   const radius = svgDimension / 2 - 4;
   const startX = svgDimension / 2 + radius;
@@ -153,6 +220,7 @@ function restoreStartButton() {
 function stopTimer(cancelling) {
   clearTimeout(timerInterval);
   clearTimeout(circleTimerInterval);
+  isTiming = false;
 
   if (cancelling) {
     clearTimeout(alarmQuackInterval);
@@ -184,6 +252,8 @@ function startTimer() {
   } else {
     document.getElementById("timerTrack").setAttribute("stroke", "#EEEEFF");
   }
+
+  isTiming = true;
 
   let seconds = minutes * 60;
   let remainingS = 120;

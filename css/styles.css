@@ -11,12 +11,14 @@
 
 :root {
   --duckFeatherGreen: #156734;
-  --duckFeatherBlue: #155DAD;
+  --duckFeatherBlue: #155DAD; /* used in script for stop quacking button */
   --duckFeatherPurple: #490A83;
   --duckFeatherBrown: #694A28;
   --duckLegOrange: #C75F2E; /* used for timer circle in html */
   --button: #FFFFFF;
+  --closeButton: #155DAD; /* used in script for cancel button */
   --greenButtonBorder: #638A73;
+  --closeButtonBorder: #7494b8; /* used in script for cancel button */
   --lightModeTextShadow: 5, 5, 5;
   --lightModeBackground: #FFFFFF;
   --lightModeTimerDisplay: #222222;
@@ -39,12 +41,14 @@ body {
 	font-size: 14px;
 	background-color: var(--lightModeBackground);
 	color: var(--duckFeatherGreen);
+  padding: 5px;
+  margin: 0;
 }
 
 .container {
   margin: 0 auto;
   padding: 20px 17px;
-  width: 98%;
+  width: 100%;
   max-width: 375px;
   max-height: 534px;
   border: 4px solid var(--duckFeatherGreen);
@@ -125,6 +129,13 @@ img {
   transform: translateY(-50%);
 }
 
+img.duckSelection {
+  position: inherit;
+  transform: unset;
+  width: 75px;
+  transform: translate(-34%, -12%);
+}
+
 #timerDisplay {
   padding: 20px;
   font-size: 2em;
@@ -144,18 +155,42 @@ button {
   box-shadow: -3px -3px 3px rgba(var(--lightModeButtonShadow), 0.55) inset;
 }
 
+.closeButton {
+  width: fit-content;
+  padding: 14px 17px 8px 17px;
+  background-color: var(--closeButton);
+  border-color: var(--closeButtonBorder);
+  float: right;
+  transform: translateY(-15px);
+}
+
 .formContainer {
 	z-index: 1;
 	display: none;
 	position: absolute;
-	transform: translate(23%, 10%);
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
 	min-height: 75px;
-	width: 260px;
+	width: 345px;
 	overflow: auto;
 	background-color: rgba(var(--lightModeSettingsBackground), 0.95);
-	border: 1px solid var(--duckFeatherGreen);
   border-radius: 22px;
 	padding: 10px;
+}
+
+.formContainer h2 {
+  margin: 0.6em 0;
+}
+
+.timeRadioButtons {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.duckRadioButtons {
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 
 .radioLabel {
@@ -163,10 +198,23 @@ button {
   grid-template-columns: 1em auto;
   gap: 1.5em;
   font-size: 1.5em;
+  cursor: pointer;
 }
 
-.radioLabel + .radioLabel {
+.duckRadioButtons .radioLabel {
+  gap: 0;
+}
+
+.timerColour .radioLabel:not(:first-of-type) {
   margin-top: 0.5em;
+}
+
+.timerColour .radioLabel:first-of-type {
+  color: var(--duckLegOrange);
+}
+
+.timerColour .radioLabel:nth-of-type(2) {
+  color: var(--duckFeatherBlue);
 }
 
 .rangeLabel {
@@ -174,6 +222,10 @@ button {
   grid-template-columns: 1em auto;
   gap: 5.75em;
   font-size: 1.5em;
+}
+
+.sliderValue {
+  padding-top: 0.5em;
 }
 
 input[type="radio"] {
@@ -188,22 +240,31 @@ input[type="radio"] {
   transform: translateY(-0.5em);
   display: grid;
   place-content: center;
+  cursor: pointer;
 }
 
-input[type="radio"]::before {
+.duckRadioButtons input[type="radio"] {
+  width: 75px;
+  height: 75px;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.duckRadioButtons input[type="radio"]:checked {
+  border-color: var(--duckFeatherBlue);
+}
+
+.duckRadioButtons input[type="radio"]:checked::before {
+  display: none;
+}
+
+input[type="radio"]:checked::before {
   content: "";
   width: 1.4em;
   height: 1.4em;
   border-radius: 50%;
-  transform: scale(0);
-  transition: 120ms transform ease-out;
-  /* background-color: var(--duckLegOrange); */
   background-image: linear-gradient(to bottom right, var(--duckFeatherPurple), var(--duckFeatherBlue), var(--duckFeatherGreen));
   box-shadow: -2px -2px 2px rgba(var(--lightModeButtonShadow), 0.55) inset;
-}
-
-input[type="radio"]:checked::before {
-  transform: scale(1);
 }
 
 input[type="range"] {
@@ -275,6 +336,10 @@ input[type="range"]::-moz-range-thumb  {
     text-shadow: 2px 2px 3px rgba(var(--darkModeTimerTextShadow), 0.5);
   }
 
+  img.duckSelection {
+    border-color: var(--darkModeInputBorder);
+  }
+
   .formContainer {
     background-color: rgba(var(--darkModeSettingsBackground), 0.9);
   }
@@ -284,7 +349,7 @@ input[type="range"]::-moz-range-thumb  {
     border: 1px solid var(--darkModeInputBorder);
   }
 
-  input[type="radio"]::before {
+  input[type="radio"]:checked::before {
     box-shadow: -2px -2px 2px rgba(var(--darkModeButtonShadow), 0.55) inset;
   }
 
