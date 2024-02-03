@@ -17,6 +17,7 @@ var ducks = [
   "./images/mallard1.png",
   "./images/mallard2.png",
   "./images/mallard3.png",
+  "./images/mallard4.png",
 ];
 
 function getDuckImageSrc(duckImageCode) {

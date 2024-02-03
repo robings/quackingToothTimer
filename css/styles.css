@@ -133,7 +133,7 @@ img.duckSelection {
   position: inherit;
   transform: unset;
   width: 75px;
-  transform: translate(-34%, -12%);
+  transform: translateY(-12%);
 }
 
 #timerDisplay {
@@ -190,7 +190,7 @@ button {
 
 .duckRadioButtons {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto;
 }
 
 .radioLabel {
@@ -203,6 +203,7 @@ button {
 
 .duckRadioButtons .radioLabel {
   gap: 0;
+  grid-template-columns: 0.25em auto;
 }
 
 .timerColour .radioLabel:not(:first-of-type) {
@@ -252,6 +253,7 @@ input[type="radio"] {
 
 .duckRadioButtons input[type="radio"]:checked {
   border-color: var(--duckFeatherBlue);
+  border-width: 2px;
 }
 
 .duckRadioButtons input[type="radio"]:checked::before {
