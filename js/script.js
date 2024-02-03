@@ -10,6 +10,7 @@ let interval;
 let timerColour;
 let isTiming = false;
 let duckImageCode;
+let turnDuck;
 
 var slider = document.getElementById("quackInterval");
 
@@ -37,6 +38,8 @@ function setupFromSettings() {
   document.getElementById("duck").src = getDuckImageSrc(duckImageCode);
   createCountdownDisplay(minutes * 60);
   interval = slider.value;
+
+  turnDuck = document.getElementById("turnDuck").checked;
 }
 
 function diagnose() {
@@ -109,9 +112,11 @@ slider.oninput = function () {
 };
 
 function turnSvg(angle) {
-  document.getElementById(
-    "duckContainer"
-  ).style.transform = `rotate(${angle}deg)`;
+  if (turnDuck) {
+    document.getElementById(
+      "duckContainer"
+    ).style.transform = `rotate(${angle}deg)`;
+  }
 
   const angleAsRadians = angle * (Math.PI / 180);
   const radius = svgDimension / 2 - 4;
